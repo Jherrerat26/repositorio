@@ -1,0 +1,1 @@
+Este en un proyecto grupal el cual combiana habilidades de nuestro equipo de trabajo y tecnologias de IA para crear aplicativos llamtivos y presentar que podemos llegar hacer si unimos lo mejor de los 2 mundos
