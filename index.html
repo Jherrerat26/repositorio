@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portafolios | Nuestra Visión</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+  <body>
+    <div class="background"><canvas id="bg-lines"></canvas></div>
+    <header class="site-header">
+      <nav class="nav">
+        <a class="nav-item active" href="#">Inicio</a>
+        <a class="nav-item" href="#about">Nosotros</a>
+        <a class="nav-item" href="#services">Servicios</a>
+        <button class="nav-item nav-button" aria-label="Abrir blog">
+          Blog
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7 10l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <a class="nav-item" href="#contact">Contacto</a>
+        <button id="theme-toggle" class="theme-toggle nav-item" role="switch" aria-checked="false" title="Cambiar tema"><span aria-hidden="true">🌙</span></button>
+      </nav>
+    </header>
+
+    <main class="container">
+      <section class="vision-grid">
+        <div class="vision-left">
+          <h1 class="title">Nuestra <span class="title-gradient">Visión</span></h1>
+          <div class="bullet-card">
+            <ul class="bullet-list">
+              <li>
+                Nuestro enfoque es simple: <strong>claridad y valor para el usuario</strong>.
+              </li>
+              <li>Colaboramos para crear productos funcionales y bellos</li>
+              <li>Impulsamos resultados medibles y sostenibles</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="vision-right">
+          <div class="glass-panel" id="panel">
+            <a class="profile-card" href="portfolios/Jaider-Suarez.html">
+              <img class="avatar" src="assets/img/Jaider-Suarez.jpeg" alt="Avatar de Jaider Suarez" />
+              <div class="profile-content">
+                <h3>Jaider Suarez</h3>
+                <p>Programador Junior</p>
+              </div>
+            </a>
+
+            <a class="profile-card" href="portfolios/Ovet-Tovar.html">
+              <img class="avatar" src="assets/img/avatar2.svg" alt="Avatar de Ovet Tovar" />
+              <div class="profile-content">
+                <h3>Ovet Tovar</h3>
+                <p>Breve descripcion...</p>
+              </div>
+            </a>
+
+            <a class="profile-card" href="portfolios/Jhonatan-Herrera.html">
+              <img class="avatar" src="assets/img/avatar3.svg" alt="Avatar de Jonatan Herrera" />
+              <div class="profile-content">
+                <h3>Jonatan Herrera</h3>
+                <p>Breve descripcion...</p>
+              </div>
+            </a>
+
+            <a class="profile-card" href="portfolios/Jhoan-Perez.html">
+              <img class="avatar" src="assets/img/avatar4.svg" alt="Avatar de Jhoan Perez" />
+              <div class="profile-content">
+                <h3>Jhoan Perez</h3>
+                <p>Breve descripcion...</p>
+              </div>
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <small>© 2025 Portafolios — Jaider Suarez - Todos los derechos reservados</small>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+  </body>
+  </html>
