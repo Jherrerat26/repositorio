@@ -116,6 +116,8 @@ body {
   transition: transform .18s ease, box-shadow .18s ease;
 }
 .profile-card:hover { box-shadow: 0 26px 38px rgba(5, 35, 78, 0.28), inset 0 -2px 0 rgba(0,0,0,0.06); }
+.profile-card:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
+@media (prefers-reduced-motion: reduce) { .profile-card { transition: none; } }
 .avatar {
   width: 64px;
   height: 64px;
