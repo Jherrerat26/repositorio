@@ -4,439 +4,304 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ovet Tovar De Avila - Portafolio</title>
-    <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #F8F9FA;
+            color: #333333;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            color: #1F3A4B;
+            font-weight: 600;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #e0e0e0;
+            max-width: 800px;
+            margin: 40px auto;
+        }
+
+        .header {
+            background-color: #1F3A4B;
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            color: #E98074;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.8em;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-links a {
+            color: #f8f9fa;
+            text-decoration: none;
+            margin-left: 25px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #E98074;
+        }
+
+        .hero {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            max-width: 1200px;
+            margin: 80px auto;
+            padding: 40px 20px;
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .hero-content {
+            flex-basis: 55%;
+            padding-right: 40px;
+        }
+
+        .hero-content h1 {
+            font-size: 3em;
+            line-height: 1.1;
+            margin-bottom: 5px;
+        }
+
+        .hero-content h2 {
+            color: #E98074;
+            font-size: 1.8em;
+            font-weight: 400;
+            margin-top: 0;
+            margin-bottom: 25px;
+        }
+
+        .hero-content p {
+            font-size: 1.1em;
+            color: #555;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #E98074;
+            color: white;
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .btn:hover {
+            background-color: #d1756a;
+            transform: translateY(-2px);
+        }
+
+        .hero-image-container {
+            flex-basis: 35%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .profile-frame {
+            background-color: #F0F0F0;
+            padding: 8px;
+            border-radius: 50%;
+            border: 5px solid #E98074;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .profile-frame:hover {
+            transform: scale(1.05) rotate(3deg);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .profile-img {
+            width: 300px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .skills-section {
+            max-width: 1100px;
+            margin: 60px auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .levels-container {
+            display: flex;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .level-column {
+            flex: 1;
+            min-width: 280px;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: box-shadow 0.3s, transform 0.3s;
+        }
+
+        .level-column:hover {
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .level-column h3 {
+            font-size: 1.6em;
+            padding-bottom: 10px;
+            border-bottom: 2px solid;
+            margin-bottom: 15px;
+        }
+
+        .junior h3 { color: #1F3A4B; border-bottom-color: #1F3A4B; }
+        .semi-senior h3 { color: #E98074; border-bottom-color: #E98074; }
+        .senior h3 { color: #A93226; border-bottom-color: #A93226; }
+
+        .level-description {
+            font-size: 0.95em;
+            color: #7f8c8d;
+            height: 40px;
+        }
+
+        .skill-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .skill-list li {
+            background-color: #f0f3f5;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            border-left: 5px solid #AAB7B8;
+            font-size: 1em;
+            text-align: left;
+        }
+
+        .placeholder-skill {
+            background-color: #fafafa !important;
+            color: #bdc3c7;
+            text-align: center !important;
+            border-left-color: #e0e0e0 !important;
+        }
+
+        .projects-section {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 20px;
+            text-align: center;
+            min-height: 250px;
+        }
+
+        .projects-section h2 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+        }
+
+        .contact-section {
+            max-width: 800px;
+            margin: 60px auto;
+            padding: 40px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+
+        .contact-section h2 {
+            font-size: 2.2em;
+            color: #E98074;
+            margin-bottom: 10px;
+        }
+
+        .contact-section p {
+            font-size: 1.1em;
+            margin-bottom: 30px;
+            color: #555;
+        }
+
+        .footer {
+            background-color: #1F3A4B;
+            color: #f8f9fa;
+            text-align: center;
+            padding: 25px 0;
+            margin-top: 80px;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 850px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero-content {
+                padding-right: 0;
+                order: 2;
+            }
+
+            .hero-image-container {
+                order: 1;
+                margin-bottom: 40px;
+            }
+
+            .levels-container {
+                flex-direction: column;
+            }
+
+            .profile-img {
+                width: 200px;
+                height: 200px;
+            }
+
+            .contact-form-container {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .btn {
+                width: 100%;
+                margin: 0 auto !important;
+            }
+        }
+    </style>
 </head>
 <body>
-
-    <header class="header">
-        <nav class="nav">
-            <a href="#inicio" class="logo">Ovet Tovar</a>
-            <ul class="nav-links">
-                <li><a href="#habilidades">Habilidades</a></li>
-                <li><a href="#proyectos">Proyectos</a></li>
-                <li><a href="#contacto">Contacto</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <section id="inicio" class="hero">
-        <div class="hero-content">
-            <h1>Hola, soy Ovet Tovar De Avila</h1>
-            <h2>Ingeniero de Sistemas & Programador Junior</h2>
-            <p>Apasionado por crear soluciones web eficientes y funcionales. Buscando aplicar mis conocimientos en entornos de desarrollo desafiantes.</p>
-            <a href="#contacto" class="btn">Contáctame</a>
-        </div>
-        <div class="hero-image-container">
-            <div class="profile-frame">
-                <img src="imagen.png" alt="Foto de Ovet Tovar De Avila" class="profile-img">
-            </div>
-        </div>
-    </section>
-
-    <hr>
-
-    <section id="habilidades" class="skills-section">
-        <h2> Dominio Técnico por Nivel</h2>
-        <div class="levels-container">
-            
-            <div class="level-column junior">
-                <h3>Junior 🔰</h3>
-                <p class="level-description">Tecnologías con experiencia práctica y capacidad de desarrollo básico a intermedio.</p>
-                <ul class="skill-list">
-                    <li>**HTML5**: Estructura Semántica y accesibilidad.</li>
-                    <li>**CSS3**: Estilizado, Flexbox y Responsive Design básico.</li>
-                    <li>**JavaScript**: Lógica básica, manipulación del DOM.</li>
-                    <li>**Java** (¡Nueva!): Fundamentos de POO y sintaxis.</li>
-                </ul>
-            </div>
-
-            <div class="level-column semi-senior">
-                <h3>Semi-Senior ⭐</h3>
-                <p class="level-description">Aquí irán las tecnologías en las que profundices en el futuro.</p>
-                <ul class="skill-list">
-                    <li class="placeholder-skill">*(Aún no aplica)*</li>
-                </ul>
-            </div>
-
-            <div class="level-column senior">
-                <h3>Senior 🏆</h3>
-                <p class="level-description">Tecnologías de dominio experto, diseño de arquitectura y mentoría.</p>
-                <ul class="skill-list">
-                    <li class="placeholder-skill">*(Aún no aplica)*</li>
-                </ul>
-            </div>
-            
-        </div>
-    </section>
-
-    <hr>
-
-    <section id="proyectos" class="projects-section">
-        <h2>Proyectos Destacados</h2>
-        <p>*1. sistema de control de acceso para univeridad por medio de un aplicativo web.*</p>
-        
-    </section>
-
-    <hr>
-    
-    <section id="contacto" class="contact-section">
-        <h2>Contacto</h2>
-        <p>¿Tienes una idea o quieres colaborar? ¡Hablemos!</p>
-    </section>
-
-    <footer class="footer">
-        <p>&copy; 2025 Ovet Tovar De Avila | Desarrollado con ❤️</p>
-    </footer>
-
-    </body>
+    <!-- Tu contenido HTML sigue aquí sin cambios -->
+    <!-- ... -->
+</body>
 </html>
-
-body {
-    font-family: 'Poppins', sans-serif; /* Fuente moderna y legible */
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    background-color: #F8F9FA; /* Fondo muy suave */
-    color: #333333;
-    line-height: 1.6;
-}
-
-h1, h2, h3 {
-    color: #1F3A4B;
-    font-weight: 600; /* Semi-Bold para títulos */
-}
-
-hr {
-    border: none;
-    border-top: 1px solid #e0e0e0;
-    max-width: 800px;
-    margin: 40px auto;
-}
-
-
-.header {
-    background-color: #1F3A4B; /* Azul Marino Profundo */
-    padding: 15px 0;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    position: sticky; /* Sticky Nav Bar */
-    top: 0;
-    z-index: 100;
-}
-
-.nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-.logo {
-    color: #E98074; /* Logo con color de acento */
-    text-decoration: none;
-    font-weight: 700;
-    font-size: 1.8em;
-}
-
-.nav-links {
-    list-style: none;
-    display: flex;
-    padding: 0;
-    margin: 0;
-}
-
-.nav-links a {
-    color: #f8f9fa; /* Texto claro */
-    text-decoration: none;
-    margin-left: 25px;
-    transition: color 0.3s;
-}
-
-.nav-links a:hover {
-    color: #E98074; /* Acento al pasar el mouse */
-}
-
-
-.hero {
-    /* Mantenemos Flex para las dos columnas */
-    display: flex;
-    justify-content: space-around; /* Mejor separación */
-    align-items: center;
-    max-width: 1200px;
-    margin: 80px auto; /* Más espacio arriba y abajo */
-    padding: 40px 20px;
-    background-color: #ffffff;
-    border-radius: 15px; /* Bordes más suaves */
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08); /* Sombra más profunda */
-}
-
-/* Alinear el texto de presentación */
-.hero-content {
-    flex-basis: 55%; /* Le damos más espacio al texto */
-    padding-right: 40px;
-}
-
-.hero-content h1 {
-    font-size: 3em; /* Más grande y llamativo */
-    line-height: 1.1;
-    margin-bottom: 5px;
-}
-
-.hero-content h2 {
-    color: #E98074; /* Título secundario con acento */
-    font-size: 1.8em;
-    font-weight: 400;
-    margin-top: 0;
-    margin-bottom: 25px;
-}
-
-.hero-content p {
-    font-size: 1.1em;
-    color: #555;
-}
-
-.btn {
-    display: inline-block;
-    background-color: #E98074; /* Botón de acento */
-    color: white;
-    padding: 12px 25px;
-    text-decoration: none;
-    border-radius: 50px; /* Botón más redondeado */
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    transition: background-color 0.3s, transform 0.2s;
-}
-
-.btn:hover {
-    background-color: #d1756a; /* Tono un poco más oscuro */
-    transform: translateY(-2px);
-}
-
-/* Diseño de la IMAGEN DE PERFIL (Ovet) */
-.hero-image-container {
-    flex-basis: 35%; /* Espacio para la imagen */
-    display: flex;
-    justify-content: center;
-}
-
-.profile-frame {
-    /* Fondo para contrastar y dar efecto de marco */
-    background-color: #F0F0F0; 
-    padding: 8px; /* Borde más grueso */
-    border-radius: 50%; 
-    border: 5px solid #E98074; /* Borde de acento más notorio */
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2); /* Sombra dramática */
-    /* Animación sutil de rotación al pasar el mouse */
-    transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
-}
-
-.profile-frame:hover {
-    transform: scale(1.05) rotate(3deg);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-}
-
-.profile-img {
-    width: 300px; /* Imagen más grande */
-    height: 300px;
-    object-fit: cover;
-    border-radius: 50%;
-}
-
-
-.skills-section {
-    max-width: 1100px;
-    margin: 60px auto;
-    padding: 20px;
-    text-align: center;
-}
-
-.levels-container {
-    display: flex;
-    gap: 30px; /* Mayor separación entre columnas */
-    margin-top: 40px;
-}
-
-.level-column {
-    flex: 1; /* Agregado para que ocupen espacio equitativo */
-    min-width: 280px;
-    background-color: #ffffff;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-    transition: box-shadow 0.3s, transform 0.3s;
-}
-
-.level-column:hover {
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-    transform: translateY(-5px);
-}
-
-.level-column h3 {
-    font-size: 1.6em;
-    padding-bottom: 10px;
-    border-bottom: 2px solid; 
-    margin-bottom: 15px;
-}
-
-/* Colores de acento para cada nivel */
-.junior h3 { 
-    color: #1F3A4B; 
-    border-bottom-color: #1F3A4B; 
-}
-.semi-senior h3 { 
-    color: #E98074; 
-    border-bottom-color: #E98074; 
-} 
-.senior h3 { 
-    color: #A93226; 
-    border-bottom-color: #A93226; 
-} 
-
-.level-description {
-    font-size: 0.95em;
-    color: #7f8c8d;
-    height: 40px;
-}
-
-.skill-list {
-    list-style: none;
-    padding: 0;
-}
-
-.skill-list li {
-    background-color: #f0f3f5; 
-    padding: 12px 15px;
-    margin-bottom: 10px;
-    border-radius: 6px;
-    border-left: 5px solid #AAB7B8; 
-    font-size: 1em;
-    text-align: left; /* Mantenemos la lista alineada a la izquierda para mejor lectura */
-}
-
-.placeholder-skill {
-    background-color: #fafafa !important;
-    color: #bdc3c7;
-    text-align: center !important;
-    border-left-color: #e0e0e0 !important;
-}
-
-
-.projects-section {
-    max-width: 1200px;
-    margin: 60px auto;
-    padding: 20px;
-    text-align: center; /* CLAVE: Centrar el título y la descripción */
-    min-height: 250px; 
-}
-
-.projects-section h2 {
-    font-size: 2.5em;
-    margin-bottom: 30px;
-}
-
-.projects-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center; /* CLAVE: Centrar las tarjetas de proyecto */
-    gap: 30px;
-    margin-top: 30px;
-}
-
-.project-card {
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-    padding: 20px;
-    text-align: left; 
-    width: 300px; 
-    transition: transform 0.3s;
-}
-
-.project-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-}
-
-
-.contact-section {
-    max-width: 800px; 
-    margin: 60px auto;
-    padding: 40px;
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
-    text-align: center; /* CLAVE: Centrar el título y la descripción */
-}
-
-.contact-section h2 {
-    font-size: 2.2em;
-    color: #E98074; 
-    margin-bottom: 10px;
-}
-
-.contact-section p {
-    font-size: 1.1em;
-    margin-bottom: 30px;
-    color: #555;
-}
-
-.contact-form-container {
-    max-width: 400px;
-    margin: 0 auto; 
-    /* <--- CAMBIO IMPORTANTE: Centrar los botones usando Flexbox */
-    display: flex; 
-    justify-content: center; 
-    gap: 15px;
-    /* -------------------------------------------------------- */
-}
-
-
-/* ------------------ FOOTER ------------------ */
-.footer {
-    background-color: #1F3A4B; /* Color primario */
-    color: #f8f9fa;
-    text-align: center;
-    padding: 25px 0;
-    margin-top: 80px;
-    font-size: 0.9em;
-}
-
-
-@media (max-width: 850px) {
-    .hero {
-        flex-direction: column; 
-        text-align: center;
-    }
-
-    .hero-content {
-        padding-right: 0;
-        order: 2; 
-    }
-
-    .hero-image-container {
-        order: 1; 
-        margin-bottom: 40px;
-    }
-
-    .levels-container {
-        flex-direction: column; 
-    }
-
-    .profile-img {
-        width: 200px;
-        height: 200px;
-    }
-
-    .contact-form-container {
-        /* En móvil, apilamos los botones para que no se vean apretados */
-        flex-direction: column; 
-        gap: 10px;
-    }
-    
-    .btn {
-        width: 100%; /* Hacemos que los botones ocupen todo el ancho en móvil */
-        margin: 0 auto !important; /* Forzamos el centrado si es necesario */
-    }
-}
