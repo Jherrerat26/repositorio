@@ -1,51 +1,341 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Portafolio — Sure Yest Creem</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../assets/css/styles.css" />
-  </head>
-  <body>
-    <div class="portfolio-wrapper">
-      <header class="site-header" style="padding-top:18px">
-        <a class="back-link" href="../index.html">← Volver al inicio</a>
-      </header>
-
-      <section class="portfolio-hero">
-        <img class="hero-avatar" src="../assets/img/avatar2.svg" alt="Avatar de Sure Yest Creem" />
-        <div>
-          <h1 class="portfolio-title">Sure Yest Creem</h1>
-          <p class="portfolio-sub">Sour Altivelling</p>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jhoan Sebastián Pérez | Portafolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8fafc;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .skill-pill {
+            transition: all 0.3s ease;
+        }
+        .skill-pill:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body class="min-h-screen text-gray-800">
+    <!-- Header/Navigation -->
+    <header class="gradient-bg text-white shadow-lg">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex justify-between items-center">
+                <div class="text-2xl font-bold">JSPR</div>
+                <nav class="hidden md:block">
+                    <ul class="flex space-x-8">
+                        <li><a href="#about" class="hover:text-blue-200 transition">Sobre mí</a></li>
+                        <li><a href="#experience" class="hover:text-blue-200 transition">Experiencia</a></li>
+                        <li><a href="#education" class="hover:text-blue-200 transition">Educación</a></li>
+                        <li><a href="#skills" class="hover:text-blue-200 transition">Habilidades</a></li>
+                        <li><a href="#contact" class="hover:text-blue-200 transition">Contacto</a></li>
+                    </ul>
+                </nav>
+                <button class="md:hidden focus:outline-none" id="menu-toggle">
+                    <i data-feather="menu"></i>
+                </button>
+            </div>
         </div>
-      </section>
-
-      <section>
-        <h2>Sobre mí</h2>
-        <p>Diseñadora de producto y experiencia, con énfasis en accesibilidad, micro‑interacciones y prototipado rápido.</p>
-      </section>
-
-      <section>
-        <h2>Proyectos</h2>
-        <div class="projects-grid">
-          <article class="project-card">
-            <div class="project-thumb"></div>
-            <h3 class="project-title">App de hábitos</h3>
-          </article>
-          <article class="project-card">
-            <div class="project-thumb"></div>
-            <h3 class="project-title">Marketplace móvil</h3>
-          </article>
-          <article class="project-card">
-            <div class="project-thumb"></div>
-            <h3 class="project-title">Rediseño de checkout</h3>
-          </article>
+        <!-- Mobile Menu -->
+        <div class="md:hidden hidden bg-blue-700 px-4 py-2" id="mobile-menu">
+            <ul class="flex flex-col space-y-3">
+                <li><a href="#about" class="block hover:text-blue-200 transition">Sobre mí</a></li>
+                <li><a href="#experience" class="block hover:text-blue-200 transition">Experiencia</a></li>
+                <li><a href="#education" class="block hover:text-blue-200 transition">Educación</a></li>
+                <li><a href="#skills" class="block hover:text-blue-200 transition">Habilidades</a></li>
+                <li><a href="#contact" class="block hover:text-blue-200 transition">Contacto</a></li>
+            </ul>
         </div>
-      </section>
-    </div>
-    <script src="../assets/js/main.js"></script>
-  </body>
-  </html>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="gradient-bg text-white py-20">
+        <div class="container mx-auto px-4 text-center">
+            <div class="max-w-3xl mx-auto">
+                <!-- Aquí se ha actualizado la URL de la imagen a la que proporcionaste -->
+                <img src="https://pm1.aminoapps.com/9411/b4fac471b26e9167717ff9bdd9af7b8a839f686br1-736-736_00.jpg" alt="Profile" class="w-32 h-32 rounded-full mx-auto mb-6 border-4 border-white shadow-lg">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4">Jhoan Sebastián Pérez Redondo</h1>
+                <h2 class="text-2xl md:text-3xl font-semibold mb-6">Programador Junior | Atención al Cliente</h2>
+                <p class="text-xl mb-8">Comprometido, responsable y con disposición para aprender y crecer profesionalmente.</p>
+                <div class="flex justify-center space-x-4">
+                    <a href="#contact" class="bg-white text-blue-600 px-6 py-3 rounded-lg font-medium hover:bg-blue-50 transition duration-300">Contáctame</a>
+                    <a href="#about" class="border-2 border-white text-white px-6 py-3 rounded-lg font-medium hover:bg-white hover:text-blue-600 transition duration-300">Conóceme</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">Sobre <span class="text-blue-600">Mí</span></h2>
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-8 md:mb-0 md:pr-8">
+                    <img src="http://static.photos/workspace/640x360/23" alt="About" class="rounded-lg shadow-xl w-full h-auto">
+                </div>
+                <div class="md:w-1/2">
+                    <h3 class="text-2xl font-semibold mb-4">Mi Perfil Profesional</h3>
+                    <p class="text-gray-600 mb-6">Soy una persona comprometida, responsable y con disposición para aprender. Cuento con experiencia en atención al cliente en ambientes dinámicos, así como habilidades para el trabajo en equipo y cumplimiento de jornadas extendidas.</p>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="bg-blue-100 p-2 rounded-full mr-4">
+                                <i data-feather="user" class="text-blue-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold">Nombre Completo</h4>
+                                <p class="text-gray-600">Jhoan Sebastián Pérez Redondo</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-blue-100 p-2 rounded-full mr-4">
+                                <i data-feather="calendar" class="text-blue-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold">Fecha de Nacimiento</h4>
+                                <p class="text-gray-600">14 de enero de 2005</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-blue-100 p-2 rounded-full mr-4">
+                                <i data-feather="map-pin" class="text-blue-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold">Dirección</h4>
+                                <p class="text-gray-600">Altos del Parrantal</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">Experiencia <span class="text-blue-600">Laboral</span></h2>
+            <div class="max-w-3xl mx-auto">
+                <div class="bg-white p-6 rounded-lg shadow-md card-hover transition duration-300 mb-8">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+                        <h3 class="text-xl font-bold">Atención al Cliente</h3>
+                        <span class="text-blue-600 font-medium">Puesto de comida rápida</span>
+                    </div>
+                    <p class="text-gray-600 mb-4">Desempeño de funciones como atención al público, manejo de pedidos, limpieza de área de trabajo y apoyo en cocina.</p>
+                    <div class="flex items-center text-gray-500">
+                        <i data-feather="clock" class="mr-2 w-4 h-4"></i>
+                        <span>Jornada extendida</span>
+                    </div>
+                </div>
+                
+                <!-- Programmer Junior Experience -->
+                <div class="bg-white p-6 rounded-lg shadow-md card-hover transition duration-300">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+                        <h3 class="text-xl font-bold">Programador Junior</h3>
+                        <span class="text-blue-600 font-medium">En formación</span>
+                    </div>
+                    <p class="text-gray-600 mb-4">Actualmente desarrollando habilidades en programación web con enfoque en front-end. Aprendiendo tecnologías como HTML, CSS, JavaScript y frameworks modernos.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">HTML</span>
+                        <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">CSS</span>
+                        <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">JavaScript</span>
+                        <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">Git</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">Formación <span class="text-blue-600">Académica</span></h2>
+            <div class="max-w-3xl mx-auto space-y-8">
+                <div class="bg-gray-50 p-6 rounded-lg shadow-md card-hover transition duration-300">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-blue-600 text-white p-3 rounded-full mr-4">
+                            <i data-feather="book"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold">Bachillerato con especialización en Promotor Social</h3>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-50 p-6 rounded-lg shadow-md card-hover transition duration-300">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-blue-600 text-white p-3 rounded-full mr-4">
+                            <i data-feather="award"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold">Estudios Universitarios</h3>
+                            <p class="text-gray-600">Actualmente cursando estudios en la Universidad de La Guajira</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">Mis <span class="text-blue-600">Habilidades</span></h2>
+            <div class="max-w-3xl mx-auto">
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <div class="bg-white p-4 rounded-lg shadow-sm skill-pill text-center">
+                        <div class="bg-blue-100 p-3 rounded-full inline-block mb-2">
+                            <i data-feather="users" class="text-blue-600"></i>
+                        </div>
+                        <h3 class="font-semibold">Atención al Cliente</h3>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm skill-pill text-center">
+                        <div class="bg-blue-100 p-3 rounded-full inline-block mb-2">
+                            <i data-feather="clock" class="text-blue-600"></i>
+                        </div>
+                        <h3 class="font-semibold">Jornada Extendida</h3>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm skill-pill text-center">
+                        <div class="bg-blue-100 p-3 rounded-full inline-block mb-2">
+                            <i data-feather="coffee" class="text-blue-600"></i>
+                        </div>
+                        <h3 class="font-semibold">Ayudante en Cocina</h3>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm skill-pill text-center">
+                        <div class="bg-blue-100 p-3 rounded-full inline-block mb-2">
+                            <i data-feather="code" class="text-blue-600"></i>
+                        </div>
+                        <h3 class="font-semibold">Programación Básica</h3>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm skill-pill text-center">
+                        <div class="bg-blue-100 p-3 rounded-full inline-block mb-2">
+                            <i data-feather="git-merge" class="text-blue-600"></i>
+                        </div>
+                        <h3 class="font-semibold">Trabajo en Equipo</h3>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm skill-pill text-center">
+                        <div class="bg-blue-100 p-3 rounded-full inline-block mb-2">
+                            <i data-feather="book" class="text-blue-600"></i>
+                        </div>
+                        <h3 class="font-semibold">Aprendizaje Rápido</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">Información de <span class="text-blue-600">Contacto</span></h2>
+            <div class="max-w-3xl mx-auto bg-gray-50 p-8 rounded-lg shadow-md">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4">Detalles de Contacto</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <div class="bg-blue-100 p-2 rounded-full mr-4">
+                                    <i data-feather="mail" class="text-blue-600"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium">Correo Electrónico</h4>
+                                    <p class="text-gray-600">jperezperez@uniguajira.edu.co</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="bg-blue-100 p-2 rounded-full mr-4">
+                                    <i data-feather="phone" class="text-blue-600"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium">Teléfono</h4>
+                                    <p class="text-gray-600">316 835 4148</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="bg-blue-100 p-2 rounded-full mr-4">
+                                    <i data-feather="map-pin" class="text-blue-600"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium">Ubicación</h4>
+                                    <p class="text-gray-600">Altos del Parrantal, La Guajira</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4">Referencias</h3>
+                        <p class="text-gray-600 mb-4">Disponibles a solicitud.</p>
+                        <div class="flex space-x-4">
+                            <a href="mailto:jperezperez@uniguajira.edu.co" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 flex items-center">
+                                <i data-feather="mail" class="mr-2"></i> Enviar Email
+                            </a>
+                            <a href="tel:+573168354148" class="border border-blue-600 text-blue-600 px-4 py-2 rounded-lg hover:bg-blue-50 transition duration-300 flex items-center">
+                                <i data-feather="phone" class="mr-2"></i> Llamar
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="gradient-bg text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <div class="flex justify-center space-x-6 mb-6">
+                <a href="#" class="hover:text-blue-200 transition duration-300">
+                    <i data-feather="facebook" class="w-6 h-6"></i>
+                </a>
+                <a href="#" class="hover:text-blue-200 transition duration-300">
+                    <i data-feather="twitter" class="w-6 h-6"></i>
+                </a>
+                <a href="#" class="hover:text-blue-200 transition duration-300">
+                    <i data-feather="linkedin" class="w-6 h-6"></i>
+                </a>
+                <a href="#" class="hover:text-blue-200 transition duration-300">
+                    <i data-feather="github" class="w-6 h-6"></i>
+                </a>
+            </div>
+            <p class="mb-4">© 2023 Jhoan Sebastián Pérez Redondo. Todos los derechos reservados.</p>
+            <p class="text-blue-200">Desarrollado con ❤️ y código</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+                // Close mobile menu if open
+                const mobileMenu = document.getElementById('mobile-menu');
+                if (!mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+        });
+
+        // Initialize feather icons
+        feather.replace();
+    </script>
+</body>
+</html>
