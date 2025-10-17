@@ -4,22 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ovet Tovar De Avila - Portafolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
     <style>
+        /* PALETA DE COLORES:
+           - Primario (Oscuro): #1F3A4B (Azul Marino Profundo)
+           - Secundario (Acento): #E98074 (Terracota / Naranja Quemado)
+           - Fondo Suave: #F8F9FA (Gris muy claro)
+           - Texto: #333333
+        */
+
+        /* ------------------ TIPOGRAFÍA Y GENERALES ------------------ */
         body {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Poppins', sans-serif; /* Fuente moderna y legible */
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            background-color: #F8F9FA;
+            background-color: #F8F9FA; /* Fondo muy suave */
             color: #333333;
             line-height: 1.6;
         }
 
         h1, h2, h3 {
             color: #1F3A4B;
-            font-weight: 600;
+            font-weight: 600; /* Semi-Bold para títulos */
         }
 
         hr {
@@ -29,11 +37,12 @@
             margin: 40px auto;
         }
 
+        /* ------------------ NAVEGACIÓN (HEADER) ------------------ */
         .header {
-            background-color: #1F3A4B;
+            background-color: #1F3A4B; /* Azul Marino Profundo */
             padding: 15px 0;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            position: sticky;
+            position: sticky; /* Sticky Nav Bar */
             top: 0;
             z-index: 100;
         }
@@ -48,7 +57,7 @@
         }
 
         .logo {
-            color: #E98074;
+            color: #E98074; /* Logo con color de acento */
             text-decoration: none;
             font-weight: 700;
             font-size: 1.8em;
@@ -62,41 +71,44 @@
         }
 
         .nav-links a {
-            color: #f8f9fa;
+            color: #f8f9fa; /* Texto claro */
             text-decoration: none;
             margin-left: 25px;
             transition: color 0.3s;
         }
 
         .nav-links a:hover {
-            color: #E98074;
+            color: #E98074; /* Acento al pasar el mouse */
         }
 
+        /* ------------------ SECCIÓN HERO/INICIO (Tu Presentación) ------------------ */
         .hero {
+            /* Mantenemos Flex para las dos columnas */
             display: flex;
-            justify-content: space-around;
+            justify-content: space-around; /* Mejor separación */
             align-items: center;
             max-width: 1200px;
-            margin: 80px auto;
+            margin: 80px auto; /* Más espacio arriba y abajo */
             padding: 40px 20px;
             background-color: #ffffff;
-            border-radius: 15px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            border-radius: 15px; /* Bordes más suaves */
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08); /* Sombra más profunda */
         }
 
+        /* Alinear el texto de presentación */
         .hero-content {
-            flex-basis: 55%;
+            flex-basis: 55%; /* Le damos más espacio al texto */
             padding-right: 40px;
         }
 
         .hero-content h1 {
-            font-size: 3em;
+            font-size: 3em; /* Más grande y llamativo */
             line-height: 1.1;
             margin-bottom: 5px;
         }
 
         .hero-content h2 {
-            color: #E98074;
+            color: #E98074; /* Título secundario con acento */
             font-size: 1.8em;
             font-weight: 400;
             margin-top: 0;
@@ -110,33 +122,36 @@
 
         .btn {
             display: inline-block;
-            background-color: #E98074;
+            background-color: #E98074; /* Botón de acento */
             color: white;
             padding: 12px 25px;
             text-decoration: none;
-            border-radius: 50px;
+            border-radius: 50px; /* Botón más redondeado */
             font-weight: 600;
             letter-spacing: 0.5px;
             transition: background-color 0.3s, transform 0.2s;
         }
 
         .btn:hover {
-            background-color: #d1756a;
+            background-color: #d1756a; /* Tono un poco más oscuro */
             transform: translateY(-2px);
         }
 
+        /* Diseño de la IMAGEN DE PERFIL (Ovet) */
         .hero-image-container {
-            flex-basis: 35%;
+            flex-basis: 35%; /* Espacio para la imagen */
             display: flex;
             justify-content: center;
         }
 
         .profile-frame {
-            background-color: #F0F0F0;
-            padding: 8px;
-            border-radius: 50%;
-            border: 5px solid #E98074;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            /* Fondo para contrastar y dar efecto de marco */
+            background-color: #F0F0F0; 
+            padding: 8px; /* Borde más grueso */
+            border-radius: 50%; 
+            border: 5px solid #E98074; /* Borde de acento más notorio */
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2); /* Sombra dramática */
+            /* Animación sutil de rotación al pasar el mouse */
             transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
@@ -146,12 +161,13 @@
         }
 
         .profile-img {
-            width: 300px;
+            width: 300px; /* Imagen más grande */
             height: 300px;
             object-fit: cover;
             border-radius: 50%;
         }
 
+        /* ------------------ SECCIÓN DE HABILIDADES MODIFICADA ------------------ */
         .skills-section {
             max-width: 1100px;
             margin: 60px auto;
@@ -161,12 +177,13 @@
 
         .levels-container {
             display: flex;
-            gap: 30px;
+            gap: 30px; /* Mayor separación entre columnas */
             margin-top: 40px;
+            flex-wrap: wrap; /* Para responsividad */
         }
 
         .level-column {
-            flex: 1;
+            flex: 1; /* Agregado para que ocupen espacio equitativo */
             min-width: 280px;
             background-color: #ffffff;
             padding: 30px;
@@ -183,13 +200,23 @@
         .level-column h3 {
             font-size: 1.6em;
             padding-bottom: 10px;
-            border-bottom: 2px solid;
+            border-bottom: 2px solid; 
             margin-bottom: 15px;
         }
 
-        .junior h3 { color: #1F3A4B; border-bottom-color: #1F3A4B; }
-        .semi-senior h3 { color: #E98074; border-bottom-color: #E98074; }
-        .senior h3 { color: #A93226; border-bottom-color: #A93226; }
+        /* Colores de acento para cada nivel */
+        .junior h3 { 
+            color: #1F3A4B; 
+            border-bottom-color: #1F3A4B; 
+        }
+        .semi-senior h3 { 
+            color: #E98074; 
+            border-bottom-color: #E98074; 
+        } 
+        .senior h3 { 
+            color: #A93226; 
+            border-bottom-color: #A93226; 
+        } 
 
         .level-description {
             font-size: 0.95em;
@@ -203,13 +230,13 @@
         }
 
         .skill-list li {
-            background-color: #f0f3f5;
+            background-color: #f0f3f5; 
             padding: 12px 15px;
             margin-bottom: 10px;
             border-radius: 6px;
-            border-left: 5px solid #AAB7B8;
+            border-left: 5px solid #AAB7B8; 
             font-size: 1em;
-            text-align: left;
+            text-align: left; /* Mantenemos la lista alineada a la izquierda para mejor lectura */
         }
 
         .placeholder-skill {
@@ -219,12 +246,13 @@
             border-left-color: #e0e0e0 !important;
         }
 
+        /* ------------------ SECCIÓN DE PROYECTOS ------------------ */
         .projects-section {
             max-width: 1200px;
             margin: 60px auto;
             padding: 20px;
-            text-align: center;
-            min-height: 250px;
+            text-align: center; /* CLAVE: Centrar el título y la descripción */
+            min-height: 250px; 
         }
 
         .projects-section h2 {
@@ -232,19 +260,43 @@
             margin-bottom: 30px;
         }
 
+        .projects-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center; /* CLAVE: Centrar las tarjetas de proyecto */
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .project-card {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+            text-align: left; 
+            width: 300px; 
+            transition: transform 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* ------------------ SECCIÓN DE CONTACTO ------------------ */
         .contact-section {
-            max-width: 800px;
+            max-width: 800px; 
             margin: 60px auto;
             padding: 40px;
             background-color: #ffffff;
             border-radius: 10px;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
-            text-align: center;
+            text-align: center; /* CLAVE: Centrar el título y la descripción */
         }
 
         .contact-section h2 {
             font-size: 2.2em;
-            color: #E98074;
+            color: #E98074; 
             margin-bottom: 10px;
         }
 
@@ -254,8 +306,18 @@
             color: #555;
         }
 
+        .contact-form-container {
+            max-width: 400px;
+            margin: 0 auto; 
+            display: flex; 
+            justify-content: center; /* Centra los botones */
+            gap: 15px;
+        }
+
+
+        /* ------------------ FOOTER ------------------ */
         .footer {
-            background-color: #1F3A4B;
+            background-color: #1F3A4B; /* Color primario */
             color: #f8f9fa;
             text-align: center;
             padding: 25px 0;
@@ -263,24 +325,21 @@
             font-size: 0.9em;
         }
 
+        /* ------------------ MEDIA QUERIES (Responsividad) ------------------ */
         @media (max-width: 850px) {
             .hero {
-                flex-direction: column;
+                flex-direction: column; 
                 text-align: center;
             }
 
             .hero-content {
                 padding-right: 0;
-                order: 2;
+                order: 2; 
             }
 
             .hero-image-container {
-                order: 1;
+                order: 1; 
                 margin-bottom: 40px;
-            }
-
-            .levels-container {
-                flex-direction: column;
             }
 
             .profile-img {
@@ -288,20 +347,125 @@
                 height: 200px;
             }
 
-            .contact-form-container {
-                flex-direction: column;
-                gap: 10px;
+            .levels-container {
+                flex-direction: column; 
             }
 
+            .contact-form-container {
+                /* En móvil, apilamos los botones para que no se vean apretados */
+                flex-direction: column; 
+                gap: 10px;
+            }
+            
             .btn {
-                width: 100%;
-                margin: 0 auto !important;
+                width: 100%; /* Hacemos que los botones ocupen todo el ancho en móvil */
+                margin: 0 auto !important; /* Forzamos el centrado si es necesario */
             }
         }
     </style>
-</head>
+    </head>
 <body>
-    <!-- Tu contenido HTML sigue aquí sin cambios -->
-    <!-- ... -->
+
+    <header class="header">
+        <nav class="nav">
+            <a href="#inicio" class="logo">Ovet Tovar</a>
+            <ul class="nav-links">
+                <li><a href="#habilidades">Habilidades</a></li>
+                <li><a href="#proyectos">Proyectos</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="inicio" class="hero">
+        <div class="hero-content">
+            <h1>Hola, soy Ovet Tovar De Avila</h1>
+            <h2>Ingeniero de Sistemas & Programador Junior</h2>
+            <p>Apasionado por crear soluciones web eficientes y funcionales. Buscando aplicar mis conocimientos en entornos de desarrollo desafiantes.</p>
+            <a href="#contacto" class="btn">Contáctame</a>
+        </div>
+        <div class="hero-image-container">
+            <div class="profile-frame">
+                <img src="imagen.png" alt="Foto de Ovet Tovar De Avila" class="profile-img">
+            </div>
+        </div>
+    </section>
+
+    <hr>
+
+    <section id="habilidades" class="skills-section">
+        <h2>Mi Dominio Técnico por Nivel</h2>
+        <div class="levels-container">
+            
+            <div class="level-column junior">
+                <h3>Junior 🔰</h3>
+                <p class="level-description">Tecnologías con experiencia práctica y capacidad de desarrollo básico a intermedio.</p>
+                <ul class="skill-list">
+                    <li>**HTML5**: Estructura Semántica y accesibilidad.</li>
+                    <li>**CSS3**: Estilizado, Flexbox y Responsive Design básico.</li>
+                    <li>**JavaScript**: Lógica básica, manipulación del DOM.</li>
+                    <li>**Java**: Fundamentos de POO y sintaxis.</li>
+                </ul>
+            </div>
+
+            <div class="level-column semi-senior">
+                <h3>Semi-Senior ⭐</h3>
+                <p class="level-description">Nivel intermedio con manejo de frameworks o dominio de un stack completo.</p>
+                <ul class="skill-list">
+                    <li class="placeholder-skill">*(Próximo Objetivo: Frameworks/DBs)*</li>
+                </ul>
+            </div>
+
+            <div class="level-column senior">
+                <h3>Senior 🏆</h3>
+                <p class="level-description">Dominio experto, diseño de arquitectura y capacidad de liderazgo técnico.</p>
+                <ul class="skill-list">
+                    <li class="placeholder-skill">*(Meta a largo plazo)*</li>
+                </ul>
+            </div>
+            
+        </div>
+    </section>
+
+    <hr>
+
+    <section id="proyectos" class="projects-section">
+        <h2>Proyectos Destacados</h2>
+        <p>Estos son algunos de los trabajos que he realizado, demostrando mis habilidades como programador junior.</p>
+        
+        <div class="projects-grid">
+            <div class="project-card">
+                <h3>Mi Portafolio (¡Este!)</h3>
+                <p>Proyecto desarrollado con HTML y CSS para demostrar conocimientos de maquetación y diseño responsivo.</p>
+                <a href="#" class="btn" style="padding: 8px 15px; font-size: 0.9em; margin-top: 10px;">Ver Demo</a>
+            </div>
+            
+            <div class="project-card">
+                <h3>Calculadora JS</h3>
+                <p>Un proyecto simple de lógica JavaScript, útil para practicar funciones y manipulación del DOM.</p>
+                <a href="#" class="btn" style="padding: 8px 15px; font-size: 0.9em; margin-top: 10px;">Ver Demo</a>
+            </div>
+            
+        </div>
+    </section>
+
+    <hr>
+
+    <section id="contacto" class="contact-section">
+        <h2>Hablemos</h2>
+        <p>Estoy disponible para nuevos proyectos y oportunidades. ¡No dudes en contactarme!</p>
+        
+        <div class="contact-form-container">
+            
+            <a href="mailto:tuemail@dominio.com" class="btn">Enviar Correo</a>
+            <a href="https://linkedin.com/in/ovettovar" class="btn" style="background-color: #0e76a8;">LinkedIn</a>
+            
+            </div>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2025 Ovet Tovar De Avila | Desarrollado con ❤️</p>
+    </footer>
+
 </body>
 </html>
