@@ -32,4 +32,4 @@ Puedes levantar un servidor estático para previsualizar:
 
 ## Licencia
 
-Uso interno del equipo. Si se requiere otra licencia, agregarla aquí.
+Uso interno del equipo. Si se requiere otra licencia, agregarla aquí."# portafolio" 
