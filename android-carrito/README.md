@@ -18,6 +18,8 @@ Conecta los motores a OUT1/OUT2 y OUT3/OUT4. Quita los puentes de ENA y ENB para
 
 ## Protocolo
 
+La versión 1.1 de la app repite la orden cada 100 ms mientras se mantiene pulsado. El programa de la Pico acumula fragmentos UART hasta recibir el salto de línea y mantiene la salida de los motores entre órdenes. Para aplicar esta corrección instala el APK nuevo y vuelve a guardar `PicoCarrito.py` en la Pico como `main.py`, reemplazando el anterior; luego reinicia la placa. Al soltar el botón se envía `S,0`. Si se pierde la comunicación, la Pico conserva la parada de seguridad de 1,2 segundos desde la última orden válida.
+
 La app envía líneas ASCII a 9600 baudios: `F,velocidad`, `B,velocidad`, `L,velocidad`, `R,velocidad` o `S,0`, con velocidad de 0 a 255. Los botones funcionan mientras se mantienen presionados y paran al soltarlos. La Pico aplica parada de seguridad si no recibe una orden válida durante 1,2 segundos.
 
 ## Uso

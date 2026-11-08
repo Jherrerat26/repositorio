@@ -14,7 +14,7 @@ except (TypeError, ValueError):
 led.on()
 
 # Bluetooth: TXD -> GP1 (RX Pico), RXD <- GP0 (TX Pico)
-uart = UART(0, baudrate=9600, tx=Pin(0), rx=Pin(1))
+uart = UART(0, baudrate=9600, tx=Pin(0), rx=Pin(1), timeout=0, timeout_char=0)
 
 # L298N: quitar puentes ENA/ENB para que la Pico controle PWM.
 in1, in2 = Pin(2, Pin.OUT), Pin(3, Pin.OUT)  # motor izquierdo
@@ -43,7 +43,9 @@ def handle(line):
         action, raw_speed = line.strip().split(",", 1)
         speed = max(0, min(255, int(raw_speed)))
     except (ValueError, TypeError):
-        stop(); return
+        return
+    if action not in ("F", "B", "L", "R", "S"):
+        return
     last_command = time.ticks_ms()
     if action == "F": motor(1, 1, speed)
     elif action == "B": motor(-1, -1, speed)
@@ -51,13 +53,36 @@ def handle(line):
     elif action == "R": motor(1, -1, speed)
     else: stop()
 
+# UART puede entregar una orden en varios fragmentos. No cambiar los motores
+# hasta recibir el salto de linea; las ordenes repetidas solo renuevan el plazo.
+rx_line = bytearray()
+discard_line = False
+MAX_LINE_BYTES = 32
+
+def receive(data):
+    global discard_line
+    for value in data:
+        if value == 10:
+            if rx_line and not discard_line:
+                try:
+                    handle(rx_line.decode())
+                except UnicodeError:
+                    pass
+            rx_line.clear()
+            discard_line = False
+        elif not discard_line:
+            if len(rx_line) < MAX_LINE_BYTES:
+                rx_line.append(value)
+            else:
+                rx_line.clear()
+                discard_line = True
+
 stop()
 while True:
     if uart.any():
-        data = uart.readline()
+        data = uart.read(64)
         if data:
-            try: handle(data.decode())
-            except UnicodeError: stop()
+            receive(data)
     if time.ticks_diff(time.ticks_ms(), last_command) > STOP_TIMEOUT_MS:
         stop()
     time.sleep_ms(10)

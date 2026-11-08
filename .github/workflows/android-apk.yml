@@ -5,6 +5,7 @@ on:
   push:
     paths:
       - 'android-carrito/**'
+      - 'tests/test_pico_uart.py'
       - '.github/workflows/android-apk.yml'
 
 permissions:
@@ -15,6 +16,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Verificar movimiento continuo y parada
+        run: python3 tests/test_pico_uart.py
       - uses: actions/setup-java@v4
         with:
           distribution: temurin

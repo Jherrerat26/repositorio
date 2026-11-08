@@ -29,6 +29,7 @@ import java.util.concurrent.Executors;
 
 public class MainActivity extends Activity {
     private static final int REQUEST_BT = 20;
+    private static final int MOTION_INTERVAL_MS = 100;
     private static final UUID SPP_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
     private BluetoothAdapter adapter;
     private BluetoothSocket socket;
@@ -45,7 +46,7 @@ public class MainActivity extends Activity {
         @Override public void run() {
             if (heldCommand == null) return;
             sendMotion(heldCommand);
-            holdHandler.postDelayed(this, 250);
+            holdHandler.postDelayed(this, MOTION_INTERVAL_MS);
         }
     };
 
