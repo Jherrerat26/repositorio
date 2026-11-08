@@ -30,4 +30,3 @@ jobs:
           name: carrito-bluetooth-apk
           path: android-carrito/app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
-

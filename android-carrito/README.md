@@ -22,6 +22,12 @@ La app envía líneas ASCII a 9600 baudios: `F,velocidad`, `B,velocidad`, `L,vel
 
 ## Uso
 
+### Descargar el APK desde GitHub
+
+En la pestaña Actions del repositorio, abre el flujo **APK Android**. Se ejecuta al subir cambios de este proyecto y también permite ejecución manual con **Run workflow**. Cuando termine correctamente, descarga **carrito-bluetooth-apk** en la sección **Artifacts** y extrae `app-debug.apk` del ZIP para instalarlo en Android. Es una compilación de depuración firmada automáticamente, adecuada para pruebas.
+
+Para compilar localmente se necesitan JDK 17, Android SDK y Gradle 8.12. Desde la raíz del repositorio ejecuta `gradle -p android-carrito --no-daemon assembleDebug`. El resultado se guarda en `android-carrito/app/build/outputs/apk/debug/app-debug.apk`.
+
 El LED integrado se enciende al iniciar el programa y permanece encendido, tanto con alimentación USB como por VSYS (pin físico 39). Para que ocurra automáticamente al alimentar la placa, guarda el programa en la Pico como `main.py`.
 
 1. Carga `PicoCarrito.py` en la Pico como `main.py` con Thonny y reiníciala.
