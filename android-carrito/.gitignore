@@ -1,0 +1,8 @@
+.gradle/
+build/
+app/build/
+local.properties
+.dart_tool/
+flutter_app/build/
+*.jks
+*.keystore
