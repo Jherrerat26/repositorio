@@ -1,5 +1,7 @@
 # Carrito Bluetooth 1.3: historial y Firebase
 
+Proyecto creado: [Carrito Bluetooth](https://console.firebase.google.com/project/carrito-bluetooth/overview), plan Spark, Realtime Database en `us-central1`. [Consultar los datos](https://console.firebase.google.com/project/carrito-bluetooth/database/carrito-bluetooth-default-rtdb/data). Se habilitó el proveedor de acceso anónimo y se publicaron las reglas incluidas en este proyecto.
+
 La app tiene una opción **Historial de movimientos**. Guarda dirección, velocidad de 0 a 255, fecha y hora del teléfono, nombre y dirección Bluetooth del módulo y sesión de conexión. Permite filtrar por dirección y distinguir los registros pendientes de los sincronizados.
 
 Solo se registran cambios después de una escritura Bluetooth exitosa; no se duplica el heartbeat de 100 ms. Son órdenes enviadas, no confirmaciones físicas de los motores: el protocolo actual de la Pico no devuelve telemetría. Se conserva el mapeo calibrado de la app: `R` corresponde al botón Izquierda y `L` a Derecha.
@@ -37,4 +39,4 @@ El workflow conserva la prueba del protocolo de la Pico, ejecuta los tests Java 
 4. Recuperar internet y tocar Sincronizar: verificar los mismos UUID en Realtime Database y que el estado cambie solo tras la confirmación del servidor.
 5. Comprobar que otro UID no pueda leer ni escribir la ruta del primer usuario.
 
-El APK debug generado por otro entorno puede tener una firma diferente al APK instalado. Si Android rechaza la actualización, no desinstalar sin guardar antes los datos que se necesiten conservar; usar la firma original para una actualización que preserve datos.
+El workflow restaura la firma del APK local 1.2 desde el secreto `ANDROID_DEBUG_KEYSTORE_BASE64` cuando está configurado. Su certificado SHA-256 es `38:25:67:12:E0:DF:09:14:E5:46:C2:9E:74:ED:01:7E:35:C0:D2:9C:F3:EF:E4:92:FC:54:A1:7B:C9:B2:FD:EB`. Así se puede instalar 1.3 como actualización del APK 1.2 local. Sin ese secreto, el runner genera otra firma; no desinstalar una app con datos importantes para resolver un conflicto de firma.

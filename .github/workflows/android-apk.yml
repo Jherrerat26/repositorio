@@ -34,6 +34,16 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.12'
+      - name: Restaurar firma de actualización
+        env:
+          DEBUG_KEYSTORE: ${{ secrets.ANDROID_DEBUG_KEYSTORE_BASE64 }}
+        run: |
+          if [ -n "$DEBUG_KEYSTORE" ]; then
+            mkdir -p "$HOME/.android"
+            printf '%s' "$DEBUG_KEYSTORE" | base64 --decode > "$HOME/.android/debug.keystore"
+            chmod 600 "$HOME/.android/debug.keystore"
+            echo 'Se usa la firma de actualización del APK anterior.' >> "$GITHUB_STEP_SUMMARY"
+          fi
       - name: Configurar Firebase
         env:
           FIREBASE_CONFIG: ${{ secrets.FIREBASE_GOOGLE_SERVICES_JSON }}
