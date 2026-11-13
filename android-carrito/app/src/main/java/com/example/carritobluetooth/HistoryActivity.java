@@ -2,14 +2,11 @@ package com.example.carritobluetooth;
 
 import android.app.Activity;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowInsets;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -50,8 +47,7 @@ public class HistoryActivity extends Activity {
     private LinearLayout.LayoutParams full() { return new LinearLayout.LayoutParams(-1, -2); }
 
     private TextView label(String text, int size, int color) {
-        TextView view = new TextView(this);
-        view.setText(text); view.setTextSize(size); view.setTextColor(color);
+        TextView view = NeonTheme.text(this, text, size, color);
         view.setPadding(0, dp(4), 0, dp(4));
         return view;
     }
@@ -59,25 +55,31 @@ public class HistoryActivity extends Activity {
     private void buildUi() {
         LinearLayout root = new LinearLayout(this);
         root.setOrientation(LinearLayout.VERTICAL);
-        root.setBackgroundColor(Color.rgb(246, 248, 252));
-        int padding = dp(18);
-        root.setPadding(padding, dp(12), padding, dp(12));
+        root.setBackgroundColor(NeonTheme.BACKGROUND);
         LinearLayout actions = new LinearLayout(this);
-        Button back = new Button(this); back.setText("Volver"); back.setOnClickListener(v -> finish());
-        Button sync = new Button(this); sync.setText("Sincronizar");
+        Button back = NeonTheme.button(this, "‹  Volver al control", false);
+        back.setOnClickListener(v -> finish());
+        Button sync = NeonTheme.button(this, "Sincronizar", true);
         sync.setOnClickListener(v -> { history.sync(); reload(); });
-        actions.addView(back, new LinearLayout.LayoutParams(0, -2, 1));
-        actions.addView(sync, new LinearLayout.LayoutParams(0, -2, 1));
-        root.addView(actions, full());
-        root.addView(label("Historial de movimientos", 25, Color.rgb(24, 44, 74)), full());
-        syncStatus = label(history.getSyncStatus(), 14, Color.rgb(74, 88, 108));
+        LinearLayout.LayoutParams backParams = new LinearLayout.LayoutParams(0, dp(48), 1);
+        backParams.rightMargin = dp(10);
+        actions.addView(back, backParams);
+        actions.addView(sync, new LinearLayout.LayoutParams(0, dp(48), 1));
+        LinearLayout.LayoutParams actionParams = full(); actionParams.bottomMargin = dp(12);
+        root.addView(actions, actionParams);
+        root.addView(label("Historial", 26, NeonTheme.TEXT), full());
+        TextView caption = label("MOVIMIENTOS · FIREBASE", 10, NeonTheme.CYAN);
+        caption.setLetterSpacing(.15f);
+        root.addView(caption, full());
+        syncStatus = label(history.getSyncStatus(), 14, NeonTheme.MUTED);
         syncStatus.setAccessibilityLiveRegion(View.ACCESSIBILITY_LIVE_REGION_POLITE);
         root.addView(syncStatus, full());
-        summary = label("Cargando registros…", 13, Color.DKGRAY); root.addView(summary, full());
-        root.addView(label("Filtrar movimiento", 14, Color.DKGRAY), full());
+        summary = label("Cargando registros…", 13, NeonTheme.MUTED); root.addView(summary, full());
+        root.addView(label("FILTRAR DIRECCIÓN", 11, NeonTheme.CYAN), full());
         Spinner filters = new Spinner(this);
         filters.setContentDescription("Filtrar movimientos por dirección");
-        filters.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, FILTERS));
+        filters.setBackground(NeonTheme.panel(this, NeonTheme.PANEL, NeonTheme.BORDER, 12));
+        filters.setAdapter(NeonTheme.spinnerAdapter(this, FILTERS));
         filters.setSelection(filter);
         filters.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -85,11 +87,16 @@ public class HistoryActivity extends Activity {
             }
             @Override public void onNothingSelected(AdapterView<?> parent) {}
         });
-        root.addView(filters, full());
+        LinearLayout.LayoutParams filterParams = full(); filterParams.bottomMargin = dp(12);
+        root.addView(filters, filterParams);
 
         FrameLayout content = new FrameLayout(this);
         ListView list = new ListView(this);
+        list.setDivider(new android.graphics.drawable.ColorDrawable(Color.TRANSPARENT));
         list.setDividerHeight(dp(8));
+        list.setSelector(android.R.color.transparent);
+        list.setClipToPadding(false);
+        list.setPadding(0, 0, 0, dp(8));
         adapter = new BaseAdapter() {
             @Override public int getCount() { return rows.size(); }
             @Override public Object getItem(int position) { return rows.get(position); }
@@ -100,12 +107,12 @@ public class HistoryActivity extends Activity {
                 else {
                     card = new LinearLayout(HistoryActivity.this);
                     card.setOrientation(LinearLayout.VERTICAL);
-                    card.setBackgroundColor(Color.WHITE);
+                    card.setBackground(NeonTheme.panel(HistoryActivity.this, NeonTheme.PANEL, NeonTheme.BORDER, 16));
                     card.setPadding(dp(14), dp(10), dp(14), dp(10));
-                    card.addView(label("", 18, Color.rgb(24, 44, 74)), full());
-                    card.addView(label("", 14, Color.DKGRAY), full());
-                    card.addView(label("", 14, Color.DKGRAY), full());
-                    card.addView(label("", 13, Color.DKGRAY), full());
+                    card.addView(label("", 18, NeonTheme.CYAN), full());
+                    card.addView(label("", 14, NeonTheme.TEXT), full());
+                    card.addView(label("", 14, NeonTheme.MUTED), full());
+                    card.addView(label("", 13, NeonTheme.MUTED), full());
                 }
                 MovementHistory.Entry entry = rows.get(position);
                 ((TextView) card.getChildAt(0)).setText(MovementTracker.direction(entry.command));
@@ -114,27 +121,22 @@ public class HistoryActivity extends Activity {
                         + Math.round(entry.speed * 100f / 255f) + "%) · " + entry.deviceName);
                 TextView state = (TextView) card.getChildAt(3);
                 state.setText(entry.synced ? "✓ Sincronizado con Firebase" : "◷ Pendiente de sincronizar");
-                state.setTextColor(entry.synced ? Color.rgb(30, 110, 75) : Color.rgb(135, 80, 20));
+                state.setTextColor(entry.synced ? NeonTheme.CYAN : NeonTheme.MUTED);
                 return card;
             }
         };
         list.setAdapter(adapter);
         content.addView(list, new FrameLayout.LayoutParams(-1, -1));
-        TextView empty = label("No hay movimientos para mostrar.\nConecta el carrito y utiliza los controles.", 16, Color.DKGRAY);
+        TextView empty = label("Sin movimientos todavía\n\nConecta el carrito y utiliza el joystick.\nTus registros aparecerán aquí.", 16, NeonTheme.MUTED);
         empty.setGravity(Gravity.CENTER);
         content.addView(empty, new FrameLayout.LayoutParams(-1, -1));
         list.setEmptyView(empty);
         root.addView(content, new LinearLayout.LayoutParams(-1, 0, 1));
-        more = new Button(this); more.setText("Mostrar más registros"); more.setEnabled(false);
+        more = NeonTheme.button(this, "Mostrar más registros", false); more.setEnabled(false);
         more.setOnClickListener(v -> { limit = Math.min(limit + 200, 10000); reload(); });
         root.addView(more, full());
 
-        if (Build.VERSION.SDK_INT >= 30) root.setOnApplyWindowInsetsListener((view, insets) -> {
-            android.graphics.Insets bars = insets.getInsets(WindowInsets.Type.systemBars());
-            view.setPadding(padding + bars.left, dp(12) + bars.top, padding + bars.right, dp(12) + bars.bottom);
-            return insets;
-        });
-        setContentView(root);
+        NeonTheme.window(this, root);
     }
 
     private void reload() {
