@@ -1,0 +1,32 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "users": {
+      "$uid": {
+        "movements": {
+          ".read": "auth != null && auth.uid === $uid",
+          ".indexOn": ["timestamp"],
+          "$eventId": {
+            ".write": "auth != null && auth.uid === $uid && newData.exists()",
+            ".validate": "newData.hasChildren(['command', 'direction', 'speed', 'timestamp', 'deviceName', 'deviceAddress', 'sessionId'])",
+            "command": {
+              ".validate": "newData.isString() && (newData.val() === 'F' || newData.val() === 'B' || newData.val() === 'L' || newData.val() === 'R' || newData.val() === 'S')"
+            },
+            "direction": {
+              ".validate": "newData.isString() && ((newData.parent().child('command').val() === 'F' && newData.val() === 'Adelante') || (newData.parent().child('command').val() === 'B' && newData.val() === 'Atrás') || (newData.parent().child('command').val() === 'R' && newData.val() === 'Izquierda') || (newData.parent().child('command').val() === 'L' && newData.val() === 'Derecha') || (newData.parent().child('command').val() === 'S' && newData.val() === 'Detener'))"
+            },
+            "speed": {
+              ".validate": "newData.isNumber() && newData.val() % 1 === 0 && ((newData.parent().child('command').val() === 'S' && newData.val() === 0) || (newData.parent().child('command').val() !== 'S' && newData.val() >= 30 && newData.val() <= 255))"
+            },
+            "timestamp": { ".validate": "newData.isNumber() && newData.val() > 0" },
+            "deviceName": { ".validate": "newData.isString() && newData.val().length <= 248" },
+            "deviceAddress": { ".validate": "newData.isString() && newData.val().length <= 64" },
+            "sessionId": { ".validate": "newData.isString() && newData.val().length === 36" },
+            "$other": { ".validate": false }
+          }
+        }
+      }
+    }
+  }
+}

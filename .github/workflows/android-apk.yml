@@ -2,6 +2,11 @@ name: APK Android
 
 on:
   workflow_dispatch:
+    inputs:
+      firebase_required:
+        description: 'Exigir Firebase configurado para este APK'
+        type: boolean
+        default: false
   push:
     paths:
       - 'android-carrito/**'
@@ -29,10 +34,33 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.12'
-      - name: Compilar APK debug
-        run: gradle -p android-carrito --no-daemon assembleDebug
+      - name: Configurar Firebase
+        env:
+          FIREBASE_CONFIG: ${{ secrets.FIREBASE_GOOGLE_SERVICES_JSON }}
+          FIREBASE_REQUIRED: ${{ inputs.firebase_required || 'false' }}
+        run: |
+          if [ -n "$FIREBASE_CONFIG" ]; then
+            printf '%s' "$FIREBASE_CONFIG" > android-carrito/app/google-services.json
+            jq -e '.project_info.project_id and .project_info.firebase_url and any(.client[]; .client_info.android_client_info.package_name == "com.example.carritobluetooth")' android-carrito/app/google-services.json > /dev/null
+            echo 'Firebase configurado para el APK.' >> "$GITHUB_STEP_SUMMARY"
+          elif [ "$FIREBASE_REQUIRED" = 'true' ]; then
+            echo '::error::Falta el secreto FIREBASE_GOOGLE_SERVICES_JSON con la URL de Realtime Database.'
+            exit 1
+          else
+            echo '::warning::APK con historial local. Firebase pendiente de configuración.'
+            echo 'Historial local disponible. Firebase NO está conectado: falta FIREBASE_GOOGLE_SERVICES_JSON.' >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - name: Probar y compilar APK 1.3
+        run: gradle -p android-carrito --no-daemon testDebugUnitTest assembleDebug
       - uses: actions/upload-artifact@v4
         with:
-          name: carrito-bluetooth-apk
+          name: carrito-bluetooth-1.3-apk
           path: android-carrito/app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
+          retention-days: 30
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: diagnostico-compilacion
+          path: android-carrito/app/build/reports/
+          if-no-files-found: ignore

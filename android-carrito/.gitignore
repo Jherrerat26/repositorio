@@ -6,3 +6,6 @@ local.properties
 flutter_app/build/
 *.jks
 *.keystore
+**/google-services.json
+**/firebase-debug.log
+**/database-debug.log

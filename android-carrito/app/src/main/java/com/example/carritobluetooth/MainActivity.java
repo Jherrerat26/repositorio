@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.view.Gravity;
 import android.view.MotionEvent;
+import android.view.WindowInsets;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -21,6 +23,7 @@ import android.widget.TextView;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.UUID;
@@ -33,7 +36,7 @@ public class MainActivity extends Activity {
     private static final UUID SPP_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
     private BluetoothAdapter adapter;
     private BluetoothSocket socket;
-    private OutputStream output;
+    private volatile OutputStream output;
     private Spinner devices;
     private TextView status, speedLabel;
     private SeekBar speedBar;
@@ -41,7 +44,12 @@ public class MainActivity extends Activity {
     private volatile boolean connecting;
     private final Handler holdHandler = new Handler(Looper.getMainLooper());
     private final ExecutorService sender = Executors.newSingleThreadExecutor();
+    private final MovementTracker movementTracker = new MovementTracker();
+    private MovementHistory history;
+    private volatile String connectionSession = "", connectedName = "Carrito", connectedAddress = "";
     private String heldCommand;
+    private int heldPointerId = -1;
+    private volatile int motionRevision;
     private final Runnable heartbeat = new Runnable() {
         @Override public void run() {
             if (heldCommand == null) return;
@@ -52,12 +60,14 @@ public class MainActivity extends Activity {
 
     private void stopMotion() {
         heldCommand = null;
+        heldPointerId = -1;
         holdHandler.removeCallbacks(heartbeat);
         sendMotion("S");
     }
 
     @Override public void onCreate(Bundle state) {
         super.onCreate(state);
+        history = MovementHistory.get(this);
         adapter = BluetoothAdapter.getDefaultAdapter();
         buildUi();
         if (adapter == null) { status.setText("Este teléfono no tiene Bluetooth clásico"); return; }
@@ -86,6 +96,17 @@ public class MainActivity extends Activity {
         LinearLayout row = new LinearLayout(this); row.setGravity(Gravity.CENTER);
         addControl(row, "◀ Izquierda", "R"); addControl(row, "■ Detener", "S"); addControl(row, "Derecha ▶", "L"); root.addView(row, full());
         addControl(root, "▼  Atrás", "B");
+        Button historyButton = new Button(this); historyButton.setText("Historial de movimientos");
+        historyButton.setOnClickListener(v -> {
+            stopMotion();
+            startActivity(new Intent(this, HistoryActivity.class));
+        });
+        root.addView(historyButton, full());
+        if (Build.VERSION.SDK_INT >= 30) root.setOnApplyWindowInsetsListener((view, insets) -> {
+            android.graphics.Insets bars = insets.getInsets(WindowInsets.Type.systemBars());
+            view.setPadding(24 + bars.left, 28 + bars.top, 24 + bars.right, 24 + bars.bottom);
+            return insets;
+        });
         setContentView(root);
     }
 
@@ -96,16 +117,27 @@ public class MainActivity extends Activity {
 
     private void bindHold(Button b, String command) {
         b.setOnTouchListener((v, e) -> {
-            if (e.getActionMasked() == MotionEvent.ACTION_DOWN) {
+            int action = e.getActionMasked();
+            if (action == MotionEvent.ACTION_DOWN) {
                 if (command.equals("S")) { stopMotion(); return true; }
                 if (heldCommand != null) return true;
                 heldCommand = command;
+                heldPointerId = e.getPointerId(e.getActionIndex());
                 holdHandler.post(heartbeat);
                 return true;
             }
-            if (e.getActionMasked() == MotionEvent.ACTION_UP || e.getActionMasked() == MotionEvent.ACTION_CANCEL) {
+            if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_POINTER_UP) {
+                if (command.equals(heldCommand) && e.getPointerId(e.getActionIndex()) == heldPointerId) stopMotion();
+                return true;
+            }
+            if (action == MotionEvent.ACTION_CANCEL) {
                 if (command.equals(heldCommand)) stopMotion();
                 return true;
+            }
+            if (action == MotionEvent.ACTION_MOVE && command.equals(heldCommand)) {
+                int index = e.findPointerIndex(heldPointerId);
+                if (index < 0 || e.getX(index) < 0 || e.getX(index) >= v.getWidth()
+                        || e.getY(index) < 0 || e.getY(index) >= v.getHeight()) stopMotion();
             }
             return true;
         });
@@ -128,6 +160,7 @@ public class MainActivity extends Activity {
 
     private void connectSelected() {
         if (connecting) return;
+        if (output != null) { status.setText("El carrito ya está conectado"); return; }
         if (!hasConnectPermission()) { requestPermissions(new String[]{Manifest.permission.BLUETOOTH_CONNECT}, REQUEST_BT); return; }
         if (bonded.isEmpty()) { status.setText("No hay dispositivos emparejados"); return; }
         int pos = devices.getSelectedItemPosition(); if (pos < 0 || pos >= bonded.size()) return;
@@ -136,6 +169,9 @@ public class MainActivity extends Activity {
             BluetoothSocket candidate = null;
             try {
                 candidate = device.createRfcommSocketToServiceRecord(SPP_UUID); candidate.connect();
+                connectedName = device.getName() == null ? "Carrito" : device.getName();
+                connectedAddress = device.getAddress();
+                connectionSession = UUID.randomUUID().toString();
                 socket = candidate; output = candidate.getOutputStream();
                 runOnUiThread(() -> status.setText("Conectado a " + device.getName()));
             } catch (IOException | SecurityException ex) {
@@ -146,14 +182,26 @@ public class MainActivity extends Activity {
     }
 
     private void sendMotion(String motion) {
+        final int revision = ++motionRevision;
         OutputStream stream = output;
         if (stream == null) { if (!motion.equals("S")) status.setText("Conecta primero el carrito"); return; }
         int progress = speedBar.getProgress();
         int speed = motion.equals("S") || progress == 0 ? 0 : Math.max(30, progress * 255 / 100);
         if (speed == 0) motion = "S";
-        byte[] bytes = (motion + "," + speed + "\n").getBytes();
+        final String sentMotion = motion, sessionId = connectionSession;
+        final String deviceName = connectedName, deviceAddress = connectedAddress;
+        final int sentSpeed = speed;
+        byte[] bytes = (motion + "," + speed + "\n").getBytes(StandardCharsets.US_ASCII);
+        if (sender.isShutdown()) return;
         sender.execute(() -> {
-            try { stream.write(bytes); stream.flush(); }
+            // Descartar movimientos pendientes al soltar o cambiar de orden.
+            if (revision != motionRevision || stream != output) return;
+            try {
+                stream.write(bytes); stream.flush();
+                if (movementTracker.shouldRecord(sentMotion, sentSpeed, sessionId)) {
+                    history.record(sentMotion, sentSpeed, System.currentTimeMillis(), deviceName, deviceAddress, sessionId);
+                }
+            }
             catch (IOException e) { output = null; runOnUiThread(() -> { stopMotion(); status.setText("Bluetooth desconectado"); }); }
         });
     }
@@ -167,6 +215,11 @@ public class MainActivity extends Activity {
     @Override protected void onPause() {
         stopMotion();
         super.onPause();
+    }
+
+    @Override public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (!hasFocus) stopMotion();
     }
 
     @Override protected void onDestroy() {
